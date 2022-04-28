@@ -25,11 +25,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import { CoachItem, CoachFilter } from "@/components";
 
 const store = useStore();
+
+onMounted(() => {
+  store.dispatch("coaches/setCoachesAction");
+});
 
 let filters = ref<string[]>([]);
 

@@ -1,26 +1,9 @@
+import { getAllCoaches, registerCoach } from "@/services/coach.service";
+
 const coachesModule = {
   namespaced: true,
   state: {
-    coaches: [
-      {
-        id: "1",
-        firstName: "Nguyen Van",
-        lastName: "Vu",
-        areas: ["frontend", "backend", "career"],
-        description:
-          "I'm Vu and I've worked as a freelance web developer for years.",
-        hourlyRate: 30,
-      },
-      {
-        id: "2",
-        firstName: "Hua Vi",
-        lastName: "Van",
-        areas: ["frontend", "backend"],
-        description:
-          "I'm Van and I've worked as a freelance web developer for years.",
-        hourlyRate: 30,
-      },
-    ],
+    coaches: [],
   },
   getters: {
     coaches(state: any) {
@@ -33,8 +16,24 @@ const coachesModule = {
       return state.coaches && state.coaches.length > 0;
     },
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    registerCoachMutation(state: any, payload: any) {
+      state.coaches.push(payload);
+    },
+    setCoachesMutation(state: any, payload: any) {
+      state.coaches = payload;
+    },
+  },
+  actions: {
+    async registerCoachAction(context: any, payload: any) {
+      const { coach, error } = await registerCoach(payload);
+      context.commit("registerCoachMutation", coach);
+    },
+    async setCoachesAction(context: any) {
+      const { coaches, error } = await getAllCoaches();
+      context.commit("setCoachesMutation", coaches);
+    },
+  },
 };
 
 export default coachesModule;
