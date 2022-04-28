@@ -1,5 +1,7 @@
 <template>
-  <section>FILTER</section>
+  <section>
+    <coach-filter @change-filter="handleChangeFilter"></coach-filter>
+  </section>
   <section>
     <base-card>
       <div class="controls">
@@ -8,7 +10,7 @@
       </div>
       <ul v-if="hasCoaches">
         <coach-item
-          v-for="coach in coaches"
+          v-for="coach in filteredCoaches"
           :key="coach.id"
           :id="coach.id"
           :rate="coach.hourlyRate"
@@ -23,19 +25,31 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { CoachItem } from "@/components";
+import { CoachItem, CoachFilter } from "@/components";
 
 const store = useStore();
 
-const coaches = computed(() => {
-  return store.getters["coaches/coaches"];
+let filters = ref<string[]>([]);
+
+const filteredCoaches = computed(() => {
+  const coaches = store.getters["coaches/coaches"];
+  return coaches.filter((coach: any) => {
+    for (let filter of filters.value) {
+      if (!coach.areas.includes(filter)) return false;
+    }
+    return true;
+  });
 });
 
 const hasCoaches = computed(() => {
   return store.getters["coaches/hasCoaches"];
 });
+
+const handleChangeFilter = (updatedFilters: string[]) => {
+  filters.value = updatedFilters;
+};
 </script>
 
 <style scoped>

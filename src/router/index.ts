@@ -11,7 +11,8 @@ const routes: Array<RouteRecordRaw> = [
     component: CoachesListView,
   },
   {
-    path: "/coach/:id",
+    path: "/coaches/:id",
+    props: true,
     component: () => import("@/views/Coach/CoachDetailView.vue"),
     children: [
       {

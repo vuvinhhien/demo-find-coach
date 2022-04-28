@@ -21,6 +21,7 @@ const text = computed(() => {
   border-radius: 30px;
   padding: 0.5rem 1.5rem;
   display: inline-block;
+  margin-bottom: 1rem;
   margin-right: 0.5rem;
 }
 

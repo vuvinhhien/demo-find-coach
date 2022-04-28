@@ -3,7 +3,7 @@ const coachesModule = {
   state: {
     coaches: [
       {
-        id: 1,
+        id: "1",
         firstName: "Nguyen Van",
         lastName: "Vu",
         areas: ["frontend", "backend", "career"],
@@ -12,7 +12,7 @@ const coachesModule = {
         hourlyRate: 30,
       },
       {
-        id: 2,
+        id: "2",
         firstName: "Hua Vi",
         lastName: "Van",
         areas: ["frontend", "backend"],
@@ -25,6 +25,9 @@ const coachesModule = {
   getters: {
     coaches(state: any) {
       return state.coaches;
+    },
+    getCoachById: (state: any) => (id: string) => {
+      return state.coaches.find((coach: any) => coach.id === id);
     },
     hasCoaches(state: any) {
       return state.coaches && state.coaches.length > 0;
