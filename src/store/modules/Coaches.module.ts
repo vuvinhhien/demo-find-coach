@@ -6,7 +6,7 @@ const coachesModule = {
         id: 1,
         firstName: "Nguyen Van",
         lastName: "Vu",
-        areas: ["Frontend", "Backend", "Career"],
+        areas: ["frontend", "backend", "career"],
         description:
           "I'm Vu and I've worked as a freelance web developer for years.",
         hourlyRate: 30,
@@ -15,7 +15,7 @@ const coachesModule = {
         id: 2,
         firstName: "Hua Vi",
         lastName: "Van",
-        areas: ["Frontend", "Backend"],
+        areas: ["frontend", "backend"],
         description:
           "I'm Van and I've worked as a freelance web developer for years.",
         hourlyRate: 30,
