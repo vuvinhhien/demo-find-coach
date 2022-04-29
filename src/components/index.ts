@@ -6,6 +6,7 @@ import BaseCard from "./UI/BaseCard.vue";
 import BaseButton from "./UI/BaseButton.vue";
 import BaseBadge from "./UI/BaseBadge.vue";
 import InputErrorMessageVee from "./InputErrorMessageVee/InputErrorMessageVee.vue";
+import RequestItem from "./Request/RequestItem.vue";
 
 export {
   MainHeader,
@@ -16,4 +17,5 @@ export {
   BaseButton,
   BaseBadge,
   InputErrorMessageVee,
+  RequestItem,
 };

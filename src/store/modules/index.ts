@@ -1,3 +1,4 @@
-import coachesModule from "./Coaches.module";
+import coachesModule from "./coaches";
+import requestsModule from "./requests";
 
-export { coachesModule };
+export { coachesModule, requestsModule };

@@ -17,6 +17,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: "contact",
+        props: true,
         component: () => import("@/views/Request/ContactCoachView.vue"),
       },
     ],

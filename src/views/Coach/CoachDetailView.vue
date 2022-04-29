@@ -10,6 +10,7 @@
       <header>
         <h2>Interested? Reach out now!</h2>
         <base-button link :to="contactLink">Contact</base-button>
+        <router-view></router-view>
       </header>
     </base-card>
   </section>
@@ -31,7 +32,7 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const store = useStore();
 const props = defineProps<{ id: string }>();
-console.log(store.getters);
+console.log(props.id);
 const coach = store.getters["coaches/getCoachById"](props.id);
 
 const fullName = computed(() => {
