@@ -6,8 +6,11 @@
     <base-card>
       <div class="controls">
         <base-button mode="outline">Refresh</base-button>
-        <base-button link to="/register">Register as Coach</base-button>
+        <base-button link to="/register" v-if="!isLoading"
+          >Register as Coach
+        </base-button>
       </div>
+      <pacman-loader :loading="isLoading"></pacman-loader>
       <ul v-if="hasCoaches">
         <coach-item
           v-for="coach in filteredCoaches"
@@ -28,14 +31,18 @@
 import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import { CoachItem, CoachFilter } from "@/components";
+import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
 
 const store = useStore();
 
-onMounted(() => {
-  store.dispatch("coaches/setCoachesAction");
+onMounted(async () => {
+  isLoading.value = true;
+  await store.dispatch("coaches/setCoachesAction");
+  isLoading.value = false;
 });
 
 let filters = ref<string[]>([]);
+const isLoading = ref<boolean>(false);
 
 const filteredCoaches = computed(() => {
   const coaches = store.getters["coaches/coaches"];
@@ -48,7 +55,7 @@ const filteredCoaches = computed(() => {
 });
 
 const hasCoaches = computed(() => {
-  return store.getters["coaches/hasCoaches"];
+  return store.getters["coaches/hasCoaches"] && !isLoading.value;
 });
 
 const handleChangeFilter = (updatedFilters: string[]) => {
