@@ -1,4 +1,11 @@
 <template>
+  <base-dialog
+    :show="!!error"
+    title="An error occured"
+    @close="handleCloseError"
+  >
+    <p>{{ error }}</p>
+  </base-dialog>
   <section>
     <coach-filter @change-filter="handleChangeFilter"></coach-filter>
   </section>
@@ -32,17 +39,23 @@ import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import { CoachItem, CoachFilter } from "@/components";
 import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
+import { BaseDialog } from "@/components";
 
 const store = useStore();
 
 onMounted(async () => {
   isLoading.value = true;
-  await store.dispatch("coaches/setCoachesAction");
+  try {
+    await store.dispatch("coaches/setCoachesAction");
+  } catch (err: any) {
+    error.value = err.message || "Something went wrong!";
+  }
   isLoading.value = false;
 });
 
 let filters = ref<string[]>([]);
 const isLoading = ref<boolean>(false);
+const error = ref<string | null>(null);
 
 const filteredCoaches = computed(() => {
   const coaches = store.getters["coaches/coaches"];
@@ -60,6 +73,10 @@ const hasCoaches = computed(() => {
 
 const handleChangeFilter = (updatedFilters: string[]) => {
   filters.value = updatedFilters;
+};
+
+const handleCloseError = () => {
+  error.value = null;
 };
 </script>
 
